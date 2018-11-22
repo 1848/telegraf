@@ -111,6 +111,11 @@
 - [#5084](https://github.com/influxdata/telegraf/issues/5084): Add early metrics to aggregator and honor drop_original setting.
 - [#5112](https://github.com/influxdata/telegraf/pull/5112): Use -W flag on bsd variants in ping input.
 - [#5114](https://github.com/influxdata/telegraf/issues/5114): Allow delta metrics in wavefront parser.
+## v1.9.1 [unreleased]
+
+### Bugfixes
+
+- [#5006](https://github.com/influxdata/telegraf/issues/5006): Fix boolean handling in splunkmetric serializer.
 
 ## v1.9 [2018-11-20]
 
