@@ -1,4 +1,5 @@
 ## v1.10 [unreleased]
+## v1.9.1 [2018-12-11]
 
 #### New Inputs
 
