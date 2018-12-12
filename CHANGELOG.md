@@ -1,4 +1,10 @@
 ## v1.10 [unreleased]
+## v1.9.2 [unreleased]
+
+### Bugfixes
+
+- [#5130](https://github.com/influxdata/telegraf/pull/5130): Increase varnishstat timeout.
+
 ## v1.9.1 [2018-12-11]
 
 #### New Inputs
