@@ -74,6 +74,7 @@
 - [#5403](https://github.com/influxdata/telegraf/issues/5403): Remove error log when snmp6 directory does not exists with nstat input.
 
 ## v1.9.4 [2019-02-05]
+## v1.9.4 [unreleased]
 
 #### Bugfixes
 
