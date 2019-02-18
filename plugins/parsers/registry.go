@@ -13,6 +13,7 @@ import (
 	"github.com/influxdata/telegraf/plugins/parsers/influx"
 	"github.com/influxdata/telegraf/plugins/parsers/json"
 	"github.com/influxdata/telegraf/plugins/parsers/logfmt"
+	"github.com/influxdata/telegraf/plugins/parsers/mvalue"
 	"github.com/influxdata/telegraf/plugins/parsers/nagios"
 	"github.com/influxdata/telegraf/plugins/parsers/value"
 	"github.com/influxdata/telegraf/plugins/parsers/wavefront"
@@ -61,6 +62,9 @@ type Parser interface {
 type Config struct {
 	// Dataformat can be one of: json, influx, graphite, value, nagios
 	DataFormat string `toml:"data_format"`
+
+	// IgnoreBegin only apply to mvalue
+	IgnoreBegin []string `toml:"ignore_begin"`
 
 	// Separator only applied to Graphite data.
 	Separator string `toml:"separator"`
@@ -156,6 +160,9 @@ func NewParser(config *Config) (Parser, error) {
 	case "value":
 		parser, err = NewValueParser(config.MetricName,
 			config.DataType, config.DefaultTags)
+	case "mvalue":
+		parser, err = NewMValueParser(config.MetricName,
+			config.DataType, config.DefaultTags, config.IgnoreBegin, config.Separator)
 	case "influx":
 		parser, err = NewInfluxParser()
 	case "nagios":
@@ -348,6 +355,22 @@ func NewValueParser(
 		MetricName:  metricName,
 		DataType:    dataType,
 		DefaultTags: defaultTags,
+	}, nil
+}
+
+func NewMValueParser(
+	metricName string,
+	dataType string,
+	defaultTags map[string]string,
+	ignoreBegin []string,
+	separator string,
+) (Parser, error) {
+	return &mvalue.MValueParser{
+		MetricName:  metricName,
+		DataType:    dataType,
+		DefaultTags: defaultTags,
+		IgnoreBegin: ignoreBegin,
+		Separator:   separator,
 	}, nil
 }
 
