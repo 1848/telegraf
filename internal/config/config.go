@@ -1318,6 +1318,18 @@ func getParserConfig(name string, tbl *ast.Table) (*parsers.Config, error) {
 		}
 	}
 
+	if node, ok := tbl.Fields["ignore_begin"]; ok {
+		if kv, ok := node.(*ast.KeyValue); ok {
+			if ary, ok := kv.Value.(*ast.Array); ok {
+				for _, elem := range ary.Value {
+					if str, ok := elem.(*ast.String); ok {
+						c.IgnoreBegin = append(c.IgnoreBegin, str.Value)
+					}
+				}
+			}
+		}
+	}
+
 	if node, ok := tbl.Fields["json_string_fields"]; ok {
 		if kv, ok := node.(*ast.KeyValue); ok {
 			if ary, ok := kv.Value.(*ast.Array); ok {
@@ -1629,6 +1641,7 @@ func getParserConfig(name string, tbl *ast.Table) (*parsers.Config, error) {
 	c.MetricName = name
 
 	delete(tbl.Fields, "data_format")
+	delete(tbl.Fields, "ignore_begin")
 	delete(tbl.Fields, "separator")
 	delete(tbl.Fields, "templates")
 	delete(tbl.Fields, "tag_keys")
